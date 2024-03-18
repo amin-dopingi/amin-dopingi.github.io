@@ -1,5 +1,12 @@
+import Arena from "~/components/Arena/Arena";
+import styles from "./Game.module.scss";
+
 const GamePage = () => {
-  return <div>This is GamePage</div>;
+  return (
+    <div className={styles.GameWrapper}>
+      <Arena />
+    </div>
+  );
 };
 
 export default GamePage;
