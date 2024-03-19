@@ -1,34 +1,75 @@
-import { LegacyRef, useEffect, useRef } from "react";
+import { FC, LegacyRef, useEffect, useRef } from "react";
 import Player from "~/class/Player";
 
-import spritsRunningRight from "~/assets/spriteRunRight.png";
-import spritsRunningLeft from "~/assets/spriteRunLeft.png";
-import spritsStandRight from "~/assets/spriteStandRight.png";
-import spritsStandLeft from "~/assets/spriteStandLeft.png";
 import { Keyboard } from "~/class/Keyboard";
+import { Platform } from "~/class";
+import { Decoration } from "~/class/Decoration";
 
-const Arena = () => {
+export interface ArenaProps {
+  platforms: Platform[];
+  decorations: Decoration[];
+  playerImage: {
+    standRight: string;
+    standLeft: string;
+    runningRight: string;
+    runningLeft: string;
+  };
+  backgroundImage: HTMLImageElement;
+}
+
+const Arena: FC<ArenaProps> = (props) => {
   const arenaRef: LegacyRef<HTMLCanvasElement> | null = useRef(null);
 
   useEffect(() => {
     const canvas = arenaRef.current!;
     const ctx = canvas.getContext("2d")!;
-    const player = new Player(canvas, { x: 0, y: 0 }, 66, 150);
+    const player = new Player(canvas, { x: 100, y: 100 }, 66, 150);
 
     player.setSprits(
-      spritsRunningRight,
-      spritsRunningLeft,
+      props.playerImage.runningRight,
+      props.playerImage.runningLeft,
       "run",
       341,
       127,
       29
     );
-    player.setSprits(spritsStandRight, spritsStandLeft, "stand", 177, 66, 59);
+    player.setSprits(
+      props.playerImage.standRight,
+      props.playerImage.standLeft,
+      "stand",
+      177,
+      66,
+      59
+    );
     player.setCurrentSpirt("stand", "right");
+
+    const decorations = props.decorations.map((decoration) => {
+      decoration.setCanvas(canvas);
+      return decoration;
+    });
+
+    const backgroundDecoration = new Decoration(
+      { x: -1, y: -1 },
+      props.backgroundImage,
+      11643,
+      732,
+      canvas
+    );
+
+    decorations.unshift(backgroundDecoration);
+
+    player.setPlatform(
+      props.platforms.map((platform) => {
+        platform.setCanvas(canvas);
+        return platform;
+      })
+    );
+    player.setDecorations(decorations);
 
     function animate() {
       requestAnimationFrame(animate);
-      ctx.fillStyle = "#111";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#1b1b1b";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       player.update();
     }
