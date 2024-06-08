@@ -20,7 +20,6 @@ const normalSpacePlatform = 100;
 const decorationImage1 = createImage(hills);
 const widthDecorationImage1 = 7545;
 const heightDecorationImage1 = 592;
-const normalSpaceDecorationImage1 = 200;
 
 const createPlatform1 = (x: number, y: number = 470) => {
   return new Platform(
