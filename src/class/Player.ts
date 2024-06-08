@@ -105,16 +105,24 @@ class Player {
   }
 
   reset() {
-    this.platforms.forEach((platform, index) => {
-      platform.position.x = this.originalPlatformsXs[index];
-    });
-    this.decorations.forEach((decoration, index) => {
-      decoration.position.x = this.originalDecorationsXs[index];
-    });
-    console.log(this.originalPlatformsXs, this.originalDecorationsXs);
-    this.position.x = 100;
-    this.position.y = 100;
-    offsetScroll.value = 0;
+    // ugly code
+    // this.platforms.forEach((platform, index) => {
+    //   platform.position.x = this.originalPlatformsXs[index];
+    // });
+    // this.decorations.forEach((decoration, index) => {
+    //   decoration.position.x = this.originalDecorationsXs[index];
+    // });
+    // this.position.x = 100;
+    // this.position.y = 100;
+    // this.velocity.x = 0;
+    // this.speed = 5;
+    // offsetScroll.value = 0;
+    // Keyboard.lastKey.key = null;
+    // for (const key in Keyboard.keys) {
+    //   // @ts-ignore
+    //   Keyboard.keys[key].pressed = false;
+    // }
+    location.reload();
   }
 
   handleLeftMovement() {
@@ -167,7 +175,7 @@ class Player {
   }
 
   handleUpMovement() {
-    this.position.y -= 20;
+    this.position.y -= 25;
   }
 
   handlePlayerMovement() {
@@ -197,6 +205,13 @@ class Player {
       this.velocity.y = 0;
     } else {
       this.velocity.y += gravity;
+    }
+  }
+
+  handleVictory(amountDistance: number) {
+    if (amountDistance === 6800) {
+      alert("You Win!");
+      this.reset();
     }
   }
 
@@ -256,6 +271,7 @@ class Player {
     this.handleDrawDecorations();
     this.draw();
     this.handleDrawPlatforms();
+    this.handleVictory(offsetScroll.value);
   }
 }
 

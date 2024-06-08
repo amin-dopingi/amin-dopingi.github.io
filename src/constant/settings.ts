@@ -1,4 +1,4 @@
-const gravity = 0.8;
+const gravity = 0.6;
 
 const offsetScroll = { value: 0 };
 

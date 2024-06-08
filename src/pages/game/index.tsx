@@ -15,7 +15,7 @@ import { Decoration } from "~/class/Decoration";
 const platformImage1 = createImage(platfromImage);
 const widthPlatformImage1 = 580;
 const heightPlatformImage1 = 125;
-const normalSpacePlatform = 150;
+const normalSpacePlatform = 100;
 
 const decorationImage1 = createImage(hills);
 const widthDecorationImage1 = 7545;
