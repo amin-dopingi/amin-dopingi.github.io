@@ -40,7 +40,7 @@ class Platform {
     // gravity is imporant!
     if (
       object.position.y + object.height <= platform.position.y &&
-      // @ts-ignore
+      // @ts-ignore 
       object.position.y + object.height + object.velocity.y + gravity >=
         platform.position.y &&
       object.position.x + object.width >= platform.position.x &&
